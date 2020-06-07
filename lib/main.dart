@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
+import 'SingleDicePage.dart';
+import 'DoubleDicePage.dart';
 
 void main() {
   return runApp(
@@ -11,53 +12,48 @@ void main() {
           title: Text('Dicee'),
           backgroundColor: Colors.red,
         ),
-        body: DicePage(),
+        body: InputPage(),
       ),
     ),
   );
 }
 
-class DicePage extends StatefulWidget {
-  @override
-  _DicePageState createState() => _DicePageState();
-}
-
-class _DicePageState extends State<DicePage> {
-  int leftDiceN = 1;
-  int rightDiceN = 1;
-
-  void change() {
-    setState(() {
-      leftDiceN = Random().nextInt(6) + 1;
-      rightDiceN = Random().nextInt(6) + 1;
-    });
-  }
-
+class InputPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: FlatButton(
-              onPressed: () {
-                change();
-                print('The Left button got pressed');
-              },
-              child: Image.asset('images/dice$leftDiceN.png'),
-            ),
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Text(
+          'The Dice App',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 40.0, color: Colors.white),
+        ),
+        SizedBox(height: 70.0),
+        FlatButton(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>SingleDicePage()));
+          },
+          child: Text(
+            'Single Dice',
+            style: TextStyle(fontSize: 40.0, color: Colors.white),
           ),
-          Expanded(
-            child: FlatButton(
-              onPressed: () {
-                change();
-                print('The Right button got pressed');
-              },
-              child: Image.asset('images/dice$rightDiceN.png'),
-            ),
+        ),
+        SizedBox(
+          height: 40.0,
+        ),
+        FlatButton(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>DoubleDicePage()));
+          },
+          child: Text(
+            'Double Dice',
+            style: TextStyle(fontSize: 40.0, color: Colors.white),
           ),
-        ],
-      ),
-    );
+        ),
+      ],
+    ));
   }
 }
